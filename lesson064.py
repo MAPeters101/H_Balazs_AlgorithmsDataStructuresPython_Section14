@@ -121,7 +121,7 @@ class AVLTree:
                 predecessor.data = node.data
                 node.data = temp
 
-                self.remove(data.predecessor)
+                self.remove_node(data, predecessor)
 
     def get_predecessor(self, node):
         if node.right_node:
