@@ -158,7 +158,7 @@ class AVLTree:
         if balance < -1:
             # right - left heavy so we need a right rotation before left rotation
             if self.calculate_balance(node.right_node) > 0:
-                self.rotate_right(node.left_node)
+                self.rotate_right(node.right_node)
 
             # left rotation
             self.rotate_left(node)
@@ -271,6 +271,6 @@ if __name__ == '__main__':
 
     avl = AVLTree()
     avl.insert(5)
-    avl.insert(4)
-    avl.insert(3)
+    avl.insert(8)
+    avl.insert(6)
 
