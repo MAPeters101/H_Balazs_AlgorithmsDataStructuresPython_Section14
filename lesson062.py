@@ -131,6 +131,17 @@ class AVLTree:
 
         return node
 
+    def handle_violation(self, node):
+        # Check the nodes from the node we have inserted up to root node
+        while node is not None:
+            node.height = max(self.calculate_height(node.left_node),
+                              self.calculate_height(node.right_node)) + 1
+            self.violation_helper()
+            # Whenever we settle a violation (rotations) it may happen that it
+            # violates the AVL properties in other part of the tree
+            node = node.parent
+
+    # Checks whether the subtree is balanced with root node = node
     def violation_helper(self, node):
 
         balance = self.calculate_balance(node)
@@ -151,8 +162,6 @@ class AVLTree:
 
             # left rotation
             self.rotate_left(node)
-
-
 
     def calc_height(self, node):
         # this is when the node is a NULL
