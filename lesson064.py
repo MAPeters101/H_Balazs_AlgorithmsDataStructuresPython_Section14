@@ -77,7 +77,8 @@ class AVLTree:
                 self.handle_violation(parent)
 
             elif node.left_node is None and node.right_node is not None:  # node !!!
-                print("Removing a node with single right child...%d" % node.data)
+                print("Removing a node with single right child...")
+
                 parent = node.parent
 
                 if parent is not None:
