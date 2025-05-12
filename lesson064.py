@@ -136,7 +136,7 @@ class AVLTree:
         while node is not None:
             node.height = max(self.calculate_height(node.left_node),
                               self.calculate_height(node.right_node)) + 1
-            self.violation_helper()
+            self.violation_helper(node)
             # Whenever we settle a violation (rotations) it may happen that it
             # violates the AVL properties in other part of the tree
             node = node.parent
