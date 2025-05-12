@@ -177,27 +177,37 @@ class AVLTree:
 
         return self.calc_height(node.left_node) - self.calc_height(node.right_node)
 
+    def traverse(self):
+        if self.root is not None:
+            self.traverse_in_order(self.root)
 
+    def traverse_in_order(self, node):
+        if node.left_node:
+            self.traverse_in_order(node.left_node)
 
+        l = ''
+        r = ''
+        p = ''
 
+        if node.left_node is not None:
+            l = node.left_node.data
+        else:
+            l = 'NULL'
 
+        if node.right_node is not None:
+            l = node.right_node.data
+        else:
+            l = 'NULL'
 
+        if node.parent is not None:
+            l = node.parent.data
+        else:
+            l = 'NULL'
 
+        print("%s left: %s right: %s parent: %s height: %s" % (node.data, l, r, p, node.height))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        if node.right_node:
+            self.traverse_in_order(node.right_node)
 
     def rotate_right(self, node):
         print("Rotating to the right on node ", node.data)
@@ -227,6 +237,35 @@ class AVLTree:
         node.height = max(self.calculate_height(node.left_node), self.calculate_height(node.right_node))
         temp_left_node.height = max(self.calculate_height(temp_left_node.left_node),
                                     self.calculate_height(temp_left_node.right_node)) + 1
+
+    def rotate_left(self, node):
+        print("Rotating to the left on node ", node.data)
+
+        temp_right_node = node.right_node
+        t = temp_right_node.left_node
+
+        temp_right_node.left_node = node
+        node.right_node = t
+
+        if t is not None:
+            t.parent = node
+
+        temp_parent = node.parent
+        node.parent = temp_right_node
+        temp_right_node.parent = temp_parent
+
+        if temp_right_node.parent is not None and temp_right_node.parent.left_node == node:
+            temp_right_node.parent.left_node = temp_right_node
+
+        if temp_right_node.parent is not None and temp_right_node.parent.right_node == node:
+            temp_right_node.parent.right_node = temp_right_node
+
+        if node == self.root:
+            self.root = temp_right_node
+
+        node.height = max(self.calculate_height(node.left_node), self.calculate_height(node.right_node))
+        temp_right_node.height = max(self.calculate_height(temp_right_node.left_node),
+                                    self.calculate_height(temp_right_node.right_node)) + 1
 
 
 
