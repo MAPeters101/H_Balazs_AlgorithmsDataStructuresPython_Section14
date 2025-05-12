@@ -103,16 +103,15 @@ class AVLTree:
                     if parent.left_node == node:
                         parent.left_node = node.left_node
                     if parent.right_node == node:
-                        parent.right_node = node.right_node
+                        parent.right_node = node.left_node
                 else:
                     self.root = node.left_node
 
                 node.left_node.parent = parent
                 del node
 
-                # After every removal WE HAVE TO CHECK whether the AVL properties are violated
                 self.handle_violation(parent)
-            # Case 3: The node has 2 children
+
             else:
                 print('Removing node with two children....')
 
