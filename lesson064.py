@@ -154,7 +154,7 @@ class AVLTree:
             self.rotate_left(node)
 
     def calculate_height(self, node):
-        # this is when the node is a NULL
+
         if node is None:
             return -1
 
@@ -185,14 +185,14 @@ class AVLTree:
             l = 'NULL'
 
         if node.right_node is not None:
-            l = node.right_node.data
+            r = node.right_node.data
         else:
-            l = 'NULL'
+            r = 'NULL'
 
         if node.parent is not None:
-            l = node.parent.data
+            p = node.parent.data
         else:
-            l = 'NULL'
+            p = 'NULL'
 
         print("%s left: %s right: %s parent: %s height: %s" % (node.data, l, r, p, node.height))
 
@@ -224,7 +224,7 @@ class AVLTree:
         if node == self.root:
             self.root = temp_left_node
 
-        node.height = max(self.calculate_height(node.left_node), self.calculate_height(node.right_node))
+        node.height = max(self.calculate_height(node.left_node), self.calculate_height(node.right_node)) + 1
         temp_left_node.height = max(self.calculate_height(temp_left_node.left_node),
                                     self.calculate_height(temp_left_node.right_node)) + 1
 
