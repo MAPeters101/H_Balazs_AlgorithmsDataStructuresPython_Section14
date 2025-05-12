@@ -228,6 +228,7 @@ class AVLTree:
         temp_left_node.height = max(self.calculate_height(temp_left_node.left_node),
                                     self.calculate_height(temp_left_node.right_node)) + 1
 
+
     def rotate_left(self, node):
         print("Rotating to the left on node ", node.data)
 
