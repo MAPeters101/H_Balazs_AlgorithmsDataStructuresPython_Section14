@@ -1,18 +1,16 @@
-
 class Node:
 
     def __init__(self, data, parent):
         self.data = data
-        self.left_node = None
-        self.right_node = None
         self.parent = parent
+        self.right_node = None
+        self.left_node = None
         self.height = 0
 
 
 class AVLTree:
 
     def __init__(self):
-        # We can access the root node exclusively
         self.root = None
 
     def remove(self, data):
@@ -26,27 +24,29 @@ class AVLTree:
             self.insert_node(data, self.root)
 
     def insert_node(self, data, node):
-
-        # We have to consider the left subtree
+        # we have to go to the left subtree
         if data < node.data:
-            # We have to check if the left node is a None
-            # When the left child is not a None
             if node.left_node:
                 self.insert_node(data, node.left_node)
             else:
                 node.left_node = Node(data, node)
-                node.height = max(self.calculate_height(node.left_node), self.calculate_height(node.right_node) + 1)
+                node.height = max(self.calculate_height(node.left_node), self.calculate_height(node.right_node))+1
+        # we have to visit the right subtree
         else:
-            # We have to check if the right node is a None
-            # When the right child is not a None
             if node.right_node:
                 self.insert_node(data, node.right_node)
             else:
                 node.right_node = Node(data, node)
-                node.height = max(self.calculate_height(node.left_node), self.calculate_height(node.right_node) + 1)
+                node.height = max(self.calculate_height(node.left_node), self.calculate_height(node.right_node))+1
 
-        # After every insertion WE HAVE TO CHECK whether the AVL properties are violated
         self.handle_violation(node)
+
+    def handle_violation(self, node):
+
+        while node is not None:
+            node.height = max(self.calculate_height(node.left_node), self.calculate_height(node.right_node))+1
+            self.violation_helper(node)
+            node = node.parent
 
     def remove_node(self, data, node):
 
@@ -58,10 +58,10 @@ class AVLTree:
         elif data > node.data:
             self.remove_node(data, node.right_node)
         else:
-            # We found the node we want to remove
-            # Case 1:) If the node is a leaf node
+
             if node.left_node is None and node.right_node is None:
                 print("Removing a leaf node...%d" % node.data)
+
                 parent = node.parent
 
                 if parent is not None and parent.left_node == node:
@@ -74,11 +74,9 @@ class AVLTree:
 
                 del node
 
-                # After every removal WE HAVE TO CHECK whether the AVL properties are violated
                 self.handle_violation(parent)
 
-            # Case 2:) If the node has a single child
-            if node.left_node is None and node.right_node is not None:  # node!!!
+            elif node.left_node is None and node.right_node is not None:  # node !!!
                 print("Removing a node with single right child...%d" % node.data)
                 parent = node.parent
 
@@ -130,16 +128,6 @@ class AVLTree:
             return self.get_predecessor(node.right_node)
 
         return node
-
-    def handle_violation(self, node):
-        # Check the nodes from the node we have inserted up to root node
-        while node is not None:
-            node.height = max(self.calculate_height(node.left_node),
-                              self.calculate_height(node.right_node)) + 1
-            self.violation_helper(node)
-            # Whenever we settle a violation (rotations) it may happen that it
-            # violates the AVL properties in other part of the tree
-            node = node.parent
 
     # Checks whether the subtree is balanced with root node = node
     def violation_helper(self, node):
