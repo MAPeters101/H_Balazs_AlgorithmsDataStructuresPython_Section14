@@ -92,11 +92,11 @@ class AVLTree:
                 node.right_node.parent = parent
                 del node
 
-                # After every removal WE HAVE TO CHECK whether the AVL properties are violated
                 self.handle_violation(parent)
 
-            if node.right_node is None and node.left_node is not None:  # node!!!
-                print("Removing a node with single left child...%d" % node.data)
+            elif node.right_node is None and node.left_node is not None:
+                print("Removing a node with single left child...")
+
                 parent = node.parent
 
                 if parent is not None:
