@@ -60,7 +60,7 @@ class AVLTree:
         else:
             # We found the node we want to remove
             # Case 1:) If the node is a leaf node
-            if node.left_node is None and node.Right_node is None:
+            if node.left_node is None and node.right_node is None:
                 print("Removing a leaf node...%d" % node.data)
                 parent = node.parent
 
@@ -271,6 +271,13 @@ if __name__ == '__main__':
 
     avl = AVLTree()
     avl.insert(5)
-    avl.insert(8)
-    avl.insert(6)
+    avl.insert(3)
+    avl.insert(10)
+    avl.insert(2)
+    avl.insert(15)
+
+    avl.remove(15)
+    avl.remove(10)
+
+
 
