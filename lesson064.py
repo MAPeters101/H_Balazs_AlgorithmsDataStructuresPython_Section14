@@ -129,22 +129,24 @@ class AVLTree:
 
         return node
 
-    # Checks whether the subtree is balanced with root node = node
     def violation_helper(self, node):
 
         balance = self.calculate_balance(node)
+
         # OK, we know the tree is left heavy BUT it can be left-right heavy or left-left heavy
         if balance > 1:
+
             # left right heavy situation: left rotation on parent + right rotation on grandparent
             if self.calculate_balance(node.left_node) < 0:
                 self.rotate_left(node.left_node)
 
-            # this is the right rotation on grandparent ( if left-left heavy, that's a single right rotation)
+            # this is the right rotation on grandparent ( if left-left heavy, that's single right rotation is needed
             self.rotate_right(node)
 
         # OK, we know the tree is right heavy BUT it can be left-right heavy or right-right heavy
         if balance < -1:
-            # right - left heavy so we need a right rotation before left rotation
+
+            # right - left heavy so we need a right rotation  before left rotation
             if self.calculate_balance(node.right_node) > 0:
                 self.rotate_right(node.right_node)
 
