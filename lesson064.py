@@ -253,7 +253,7 @@ class AVLTree:
         if node == self.root:
             self.root = temp_right_node
 
-        node.height = max(self.calculate_height(node.left_node), self.calculate_height(node.right_node))
+        node.height = max(self.calculate_height(node.left_node), self.calculate_height(node.right_node)) + 1
         temp_right_node.height = max(self.calculate_height(temp_right_node.left_node),
                                     self.calculate_height(temp_right_node.right_node)) + 1
 
